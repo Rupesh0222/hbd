@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a little something I wanted to write</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style4.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual. Reduced further once the letter opens. -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, same concept as previous pages -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <main class="stage">
+
+    <!-- Quiet introductory scene, shown first -->
+    <section class="intro-scene" id="introScene">
+      <p class="intro-eyebrow">a little something I wanted to write&hellip;</p>
+      <p class="intro-for-you">For you, <span id="herNameIntro"></span> ♡</p>
+
+      <div class="envelope-wrap">
+        <button
+          type="button"
+          class="envelope"
+          id="envelopeButton"
+          aria-label="Open the letter, for you"
+          aria-expanded="false"
+        >
+          <span class="env-shadow" aria-hidden="true"></span>
+          <span class="env-back" aria-hidden="true"></span>
+          <span class="env-flower" aria-hidden="true">
+            <span class="env-petal"></span><span class="env-petal"></span><span class="env-petal"></span><span class="env-petal"></span><span class="env-petal-center"></span>
+          </span>
+          <span class="env-flap" aria-hidden="true"></span>
+          <span class="env-seal" aria-hidden="true">♡</span>
+          <span class="env-label" id="envelopeLabel">Just for you cutie pie ♡</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- The letter itself, revealed once the envelope is opened -->
+    <section class="letter-scene" id="letterScene" hidden>
+      <div class="letter-paper" id="letterPaper" tabindex="-1" aria-label="A letter for you">
+
+        <span class="paper-deco paper-clip" aria-hidden="true"></span>
+        <span class="paper-deco gold-star gold-star-a" aria-hidden="true">✦</span>
+        <span class="paper-deco gold-star gold-star-b" aria-hidden="true">✧</span>
+        <span class="paper-deco heart-doodle" aria-hidden="true">♡</span>
+        <span class="paper-deco wax-seal-mini" aria-hidden="true">♡</span>
+
+        <span class="paper-deco pressed-flower pressed-flower-a" aria-hidden="true">
+          <span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span>
+          <span class="pf-stem"></span>
+        </span>
+        <span class="paper-deco pressed-sprig pressed-sprig-a" aria-hidden="true">
+          <span class="sprig-leaf"></span><span class="sprig-leaf"></span><span class="sprig-leaf"></span>
+        </span>
+
+        <p class="letter-date reveal-unit" id="letterDate"></p>
+        <p class="letter-greeting reveal-unit" id="letterGreeting"></p>
+
+        <div class="letter-body" id="letterBody">
+          <!-- Paragraphs are rendered here by script4.js from LETTER_CONTENT -->
+        </div>
+
+        <p class="letter-signoff reveal-unit" id="letterSignoff">With a little more honesty than usual,</p>
+        <p class="letter-signature reveal-unit" id="letterSignature"></p>
+
+        <div class="letter-closing" id="letterClosing" hidden>
+          <p class="closing-whisper">okay&hellip; enough serious feelings for one page ♡</p>
+          <p class="closing-tease">There&rsquo;s still something I want to tell you.</p>
+          <button type="button" class="continue-button" id="continueButton">
+            Continue <span class="continue-arrow" aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    MUSIC ARCHITECTURE:
+    Page 4 does not start, restart, or manage audio in any way. If a
+    shared <audio> element already exists from a future single-shell
+    integration, it simply keeps playing untouched.
+  -->
+
+  <script src="music.js"></script>
+
+  <script src="script4.js"></script>
+</body>
+</html>

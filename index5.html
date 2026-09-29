@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>things I like about you</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style5.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, same concept as previous pages -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <!-- Everything the visitor normally interacts with. Hidden/inert while the modal is open. -->
+  <div class="page-content" id="pageContent">
+
+    <header class="intro">
+      <p class="intro-whisper">okay&hellip; one more thing ♡</p>
+      <h1 class="intro-heading">Things I Like About You</h1>
+      <p class="intro-subheading">Not the obvious things. The little ones.</p>
+      <p class="intro-tease">I could probably keep going&hellip;</p>
+      <span class="intro-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-mark">✦</span>
+        <span class="divider-line"></span>
+      </span>
+    </header>
+
+    <section class="desk" aria-label="Little things I like about you">
+      <!-- Faint decorative accents scattered behind the notes -->
+      <span class="deco deco-star deco-star-a" aria-hidden="true">✦</span>
+      <span class="deco deco-star deco-star-b" aria-hidden="true">✧</span>
+      <span class="deco deco-heart deco-heart-a" aria-hidden="true">♡</span>
+
+      <div class="notes-grid" id="notesGrid" tabindex="-1">
+        <!-- Note cards are generated here by page5.js from `littleThings` -->
+      </div>
+    </section>
+
+    <section class="playful" id="playfulSection">
+      <p class="playful-prompt">Think that&rsquo;s all?</p>
+      <button type="button" class="playful-button" id="playfulButton">probably not ♡</button>
+      <div class="playful-reveal" id="playfulReveal" hidden>
+        <p class="playful-line">Okay fine&hellip; I have more to say. But you&rsquo;ll have to keep going.</p>
+        <p class="playful-whisper">don&rsquo;t get too confident though 🤭</p>
+      </div>
+    </section>
+
+    <section class="ending">
+      <p class="ending-line">So yes&hellip;</p>
+      <p class="ending-line">I notice the little things.</p>
+      <p class="ending-whisper">Maybe a few more than I should. ♡</p>
+      <p class="ending-line ending-hook">And I still haven&rsquo;t told you the main thing.</p>
+      <button type="button" class="continue-button" id="continueButton">
+        Keep going <span class="continue-arrow" aria-hidden="true">&rarr;</span>
+      </button>
+    </section>
+
+  </div>
+
+  <!-- Note modal: an accessible dialog for reading one note at a time -->
+  <div class="note-backdrop" id="noteBackdrop" hidden>
+    <div
+      class="note-modal"
+      id="noteModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="A little admission"
+    >
+      <button type="button" class="note-close" id="noteClose" aria-label="Close note">
+        <svg viewBox="0 0 24 24" class="note-icon"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <p class="note-eyebrow">a little admission&hellip;</p>
+      <p class="note-accent" id="noteAccent"></p>
+      <h2 class="note-title" id="noteTitle"></h2>
+      <p class="note-message" id="noteMessage"></p>
+
+      <span class="note-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-mark">✦</span>
+        <span class="divider-line"></span>
+      </span>
+
+      <p class="note-footer" id="noteFooter"></p>
+
+      <div class="note-nav">
+        <button type="button" class="note-nav-button note-prev" id="notePrev" aria-label="Previous note">
+          <span aria-hidden="true">&larr;</span> Previous
+        </button>
+        <p class="note-counter" id="noteCounter" aria-live="polite"></p>
+        <button type="button" class="note-nav-button note-next" id="noteNext" aria-label="Next note">
+          Next <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sparkle burst layer for the "Keep going" moment -->
+  <div class="sparkle-burst" id="sparkleBurst" aria-hidden="true"></div>
+
+  <!--
+    MUSIC ARCHITECTURE:
+    Page 5 does not start, restart, or manage audio in any way. If a
+    shared <audio> element already exists from a future single-shell
+    integration, it simply keeps playing untouched.
+  -->
+
+  <script src="music.js"></script>
+
+  <script src="script5.js"></script>
+</body>
+</html>

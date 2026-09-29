@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>a little photo booth</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style6.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, same concept as previous pages -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <!-- Everything the visitor normally interacts with. Hidden/inert while a modal is open. -->
+  <div class="page-content" id="pageContent">
+
+    <header class="intro">
+      <p class="intro-whisper">okay&hellip; picture time ♡</p>
+      <h1 class="intro-heading">A Little Photo Booth</h1>
+      <p class="intro-subheading">Because apparently I need proof that you looked this cute today.</p>
+      <p class="intro-tease">Your turn. No pressure. Just have fun. 🤭</p>
+
+      <!-- Small decorative vintage camera motif, built with CSS -->
+      <span class="camera-motif" aria-hidden="true">
+        <span class="motif-body">
+          <span class="motif-lens"></span>
+          <span class="motif-flash"></span>
+        </span>
+        <span class="motif-strap"></span>
+      </span>
+    </header>
+
+    <section class="booth" id="boothSection" aria-label="Photo booth">
+
+      <!-- State: camera not yet opened -->
+      <div class="booth-closed" id="boothClosed">
+        <button type="button" class="open-camera-button" id="openCameraButton">
+          Open the camera ♡
+        </button>
+        <p class="camera-error" id="cameraError" role="alert" hidden></p>
+      </div>
+
+      <!-- State: live camera -->
+      <div class="booth-live" id="boothLive" hidden>
+        <div class="camera-frame">
+          <video class="camera-video" id="cameraVideo" autoplay playsinline muted></video>
+
+          <div class="countdown-overlay" id="countdownOverlay" aria-hidden="true">
+            <span class="countdown-number" id="countdownNumber"></span>
+          </div>
+
+          <div class="flash-overlay" id="flashOverlay" aria-hidden="true"></div>
+        </div>
+
+        <div class="booth-options">
+          <div class="option-group" role="group" aria-label="Choose a filter">
+            <p class="option-label">Filter</p>
+            <div class="option-row" id="filterRow"></div>
+          </div>
+          <div class="option-group" role="group" aria-label="Choose a frame">
+            <p class="option-label">Frame</p>
+            <div class="option-row" id="frameRow"></div>
+          </div>
+        </div>
+
+        <div class="booth-controls">
+          <button type="button" class="control-button flip-button" id="flipButton" aria-label="Flip camera">
+            <svg viewBox="0 0 24 24" class="control-icon"><path d="M16 3l3 3-3 3M8 21l-3-3 3-3M19 6H8a5 5 0 0 0-5 5v1M5 18h11a5 5 0 0 0 5-5v-1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <button type="button" class="capture-button" id="captureButton" aria-label="Capture photo">
+            <span class="capture-ring" aria-hidden="true"></span>
+          </button>
+
+          <button type="button" class="control-button close-button" id="closeCameraButton" aria-label="Close camera">
+            <svg viewBox="0 0 24 24" class="control-icon"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- State: reviewing a just-captured photo -->
+      <div class="booth-preview" id="boothPreview" hidden>
+        <img class="preview-image" id="previewImage" alt="Your just-captured photo">
+        <p class="preview-status" id="previewStatus" role="status" aria-live="polite"></p>
+        <div class="preview-actions">
+          <button type="button" class="preview-action preview-action-keep" id="keepButton">Keep Photo ♡</button>
+          <button type="button" class="preview-action" id="retakeButton">Retake</button>
+          <button type="button" class="preview-action" id="downloadPreviewButton">Save this photo</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Offscreen working canvas used to composite the final photo -->
+    <canvas id="captureCanvas" hidden></canvas>
+
+    <section class="gallery-section" id="gallerySection" hidden aria-label="Your little collection">
+      <p class="gallery-heading">your little collection so far</p>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <section class="final-section">
+      <p class="final-line">You can keep these little memories here&hellip;</p>
+      <p class="final-line">But I think there&rsquo;s still something I need to say.</p>
+      <p class="final-whisper">One last thing &rarr;</p>
+      <button type="button" class="continue-button" id="continueButton">
+        Continue <span class="continue-arrow" aria-hidden="true">&rarr;</span>
+      </button>
+    </section>
+
+  </div>
+
+  <!-- Gallery photo preview modal (view larger / remove) -->
+  <div class="gallery-backdrop" id="galleryBackdrop" hidden>
+    <div
+      class="gallery-modal"
+      id="galleryModal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo preview"
+    >
+      <button type="button" class="gallery-close" id="galleryClose" aria-label="Close preview">
+        <svg viewBox="0 0 24 24" class="gallery-icon"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <img class="gallery-modal-image" id="galleryModalImage" alt="A photo from your collection">
+
+      <div class="gallery-modal-actions" id="galleryModalActions">
+        <button type="button" class="gallery-action" id="galleryDownload">Save this photo</button>
+        <button type="button" class="gallery-action gallery-action-remove" id="galleryRemove">Remove</button>
+      </div>
+
+      <div class="gallery-confirm" id="galleryConfirm" hidden>
+        <p class="gallery-confirm-text">Remove this photo from your collection?</p>
+        <div class="gallery-confirm-actions">
+          <button type="button" class="gallery-action" id="galleryKeepIt">Keep it</button>
+          <button type="button" class="gallery-action gallery-action-remove" id="galleryConfirmRemove">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    MUSIC ARCHITECTURE:
+    Page 6 does not start, restart, or manage audio in any way. If a
+    shared <audio> element already exists from a future single-shell
+    integration, it simply keeps playing untouched.
+  -->
+
+  <script src="music.js"></script>
+  
+  <script type="module" src="script6.js"></script>
+</body>
+</html>

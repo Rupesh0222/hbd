@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a little special</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual, sits behind everything -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, shared visual language with Page 1 -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <main class="stage">
+
+    <!-- Quiet entrance sequence, shown before the main card -->
+    <div class="intro-sequence" id="introSequence" aria-live="polite">
+      <p class="whisper-line" id="whisperLine">pssst&hellip; ♡</p>
+      <p class="today-line" id="todayLine">Today is a little special.</p>
+    </div>
+
+    <!-- Main birthday card, revealed once the intro sequence finishes -->
+    <section class="card" id="birthdayCard" aria-label="Birthday message">
+      <span class="corner corner-tl" aria-hidden="true"></span>
+      <span class="corner corner-tr" aria-hidden="true"></span>
+      <span class="corner corner-bl" aria-hidden="true"></span>
+      <span class="corner corner-br" aria-hidden="true"></span>
+
+      <h1 class="headline" id="headline">
+        Happy Birthday, <span id="herName">Neha</span> ♡
+      </h1>
+
+      <p class="reveal-line line-1" id="line1">I wanted to wish you a little differently this year.</p>
+      <p class="reveal-line line-2" id="line2">So instead of just sending you a message&hellip;</p>
+      <p class="reveal-line line-3 typewriter" id="typewriterLine" aria-label="I made you something."></p>
+
+      <!-- Interactive envelope -->
+      <div class="envelope-stage" id="envelopeStage">
+        <button
+          type="button"
+          class="envelope"
+          id="envelopeButton"
+          aria-label="Open the envelope, for you"
+          aria-expanded="false"
+        >
+          <span class="envelope-shadow" aria-hidden="true"></span>
+          <span class="envelope-back" aria-hidden="true"></span>
+          <span class="envelope-flap" aria-hidden="true"></span>
+          <span class="envelope-seal" aria-hidden="true">♡</span>
+          <span class="envelope-caption" id="envelopeCaption">For you ♡</span>
+        </button>
+      </div>
+
+      <!-- The note rises to the center of the card when the envelope opens,
+           positioned relative to the card itself so it can never end up
+           stuck off-screen regardless of the envelope's small size. -->
+      <div class="letter-note" id="letterNote" aria-hidden="true">
+        <p class="letter-line">Happy Birthday, Neha. ♡</p>
+        <p class="letter-line">I hope today gives you at least a fraction<br>of the happiness you give to the people around you.</p>
+        <p class="letter-line letter-line-and-yes">And yes&hellip;</p>
+        <p class="letter-line">there is a little more waiting for you.</p>
+        <p class="letter-signature">for you, always ♡</p>
+      </div>
+
+      <button type="button" class="next-button" id="nextButton" hidden aria-label="Continue to the next part">
+        There&rsquo;s more&hellip; <span class="next-arrow" aria-hidden="true">&rarr;</span>
+      </button>
+
+    </section>
+
+    <!-- Sparkle burst layer for the envelope-opening moment -->
+    <div class="sparkle-burst" id="sparkleBurst" aria-hidden="true"></div>
+  </main>
+
+  <!--
+    MUSIC ARCHITECTURE (shared across pages):
+    Page 2 does NOT start or restart any audio itself. If a persistent
+    <audio id="bgm"> element already exists (carried over from an
+    earlier page in a future single-shell integration), Page 2 simply
+    leaves it alone. This block is left here only as a placeholder for
+    where that shared element will eventually live.
+    -->
+   
+    <!-- <audio id="bgm" loop preload="none">
+      <source src="bgm.mp3" type="audio/mpeg">
+    </audio> -->
+
+  <script src="music.js"></script>
+
+  <script src="script2.js"></script>
+</body>
+</html>

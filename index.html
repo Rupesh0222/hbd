@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a little secret</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer sits behind everything, purely visual -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom romantic cursor (desktop only, added/removed via JS) -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <main class="stage">
+    <section class="card" id="mainCard" role="region" aria-label="Secret entrance">
+
+      <p class="eyebrow">✦ a little secret ✦</p>
+
+      <h1 class="headline">Before you enter&hellip;</h1>
+      <p class="subline">I need you to know something.</p>
+      <p class="handwritten">only for you ♡</p>
+
+      <div class="pin-section">
+        <label class="pin-label" for="pinHiddenInput">Enter the date when 8th wonder happened</label>
+
+        <div class="pin-dots" id="pinDots" aria-hidden="true">
+          <span class="dot" data-index="0"></span>
+          <span class="dot" data-index="1"></span>
+          <span class="dot" data-index="2"></span>
+          <span class="dot" data-index="3"></span>
+        </div>
+
+        <!-- Hidden input captures physical keyboard entry (numbers, backspace, enter) -->
+        <input
+          type="tel"
+          inputmode="numeric"
+          id="pinHiddenInput"
+          class="pin-hidden-input"
+          maxlength="4"
+          autocomplete="off"
+          aria-label="Enter 4 digit secret code"
+        >
+
+        <p class="pin-message" id="pinMessage" role="status" aria-live="polite">&nbsp;</p>
+      </div>
+
+      <div class="keypad" id="keypad" role="group" aria-label="Numeric keypad">
+        <button type="button" class="key" data-digit="1" aria-label="1">1</button>
+        <button type="button" class="key" data-digit="2" aria-label="2">2</button>
+        <button type="button" class="key" data-digit="3" aria-label="3">3</button>
+        <button type="button" class="key" data-digit="4" aria-label="4">4</button>
+        <button type="button" class="key" data-digit="5" aria-label="5">5</button>
+        <button type="button" class="key" data-digit="6" aria-label="6">6</button>
+        <button type="button" class="key" data-digit="7" aria-label="7">7</button>
+        <button type="button" class="key" data-digit="8" aria-label="8">8</button>
+        <button type="button" class="key" data-digit="9" aria-label="9">9</button>
+        <button type="button" class="key key-backspace" data-action="backspace" aria-label="Delete last digit">
+          <svg viewBox="0 0 24 24" class="key-icon"><path d="M9 6h11a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9a1 1 0 0 1-.78-.37L3 12l5.22-5.63A1 1 0 0 1 9 6Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12.2 9.5 16 13.3M16 9.5l-3.8 3.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </button>
+        <button type="button" class="key" data-digit="0" aria-label="0">0</button>
+        <button type="button" class="key key-enter" data-action="enter" aria-label="Confirm code">
+          <svg viewBox="0 0 24 24" class="key-icon"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <p class="success-text" id="successText" aria-live="polite">Welcome, you ♡</p>
+
+    </section>
+
+    <!-- Sparkle burst layer for the success moment, layered above the card -->
+    <div class="sparkle-burst" id="sparkleBurst" aria-hidden="true"></div>
+  </main>
+
+  <!--
+    MUSIC ARCHITECTURE (placeholder for future integration):
+    When the full experience is assembled, a persistent <audio> element
+    and its controller will live here (or in a shared shell around all
+    7 pages). Page 1 already listens for the user's first interaction
+    and prepares window.loveNoteMusic so that a future <audio id="bgm">
+    element can simply be dropped in and started without touching this
+    file again. See page1.js -> initMusicArchitecture().
+    -->
+
+    <!-- <audio id="bgm" loop preload="none">
+      <source src="bgm.mp3" type="audio/mpeg">
+    </audio> -->
+    
+  <script src="music.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

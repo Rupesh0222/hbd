@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>something I've been meaning to tell you</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style7.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual. Dimmed once the confession is revealed. -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, same concept as previous pages -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <main class="stage" id="stage">
+
+    <div class="paper" id="paper">
+
+      <span class="paper-deco tape tape-left" aria-hidden="true"></span>
+      <span class="paper-deco tape tape-right" aria-hidden="true"></span>
+      <span class="paper-deco gold-star gold-star-a" aria-hidden="true">✦</span>
+      <span class="paper-deco gold-star gold-star-b" aria-hidden="true">✧</span>
+      <span class="paper-deco heart-doodle heart-doodle-a" aria-hidden="true">♡</span>
+      <span class="paper-deco heart-doodle heart-doodle-b" aria-hidden="true">♡</span>
+
+      <span class="paper-deco pressed-flower pressed-flower-a" aria-hidden="true">
+        <span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span>
+        <span class="pf-stem"></span>
+      </span>
+      <span class="paper-deco pressed-sprig pressed-sprig-a" aria-hidden="true">
+        <span class="sprig-leaf"></span><span class="sprig-leaf"></span><span class="sprig-leaf"></span>
+      </span>
+
+      <!-- Intro: shown first, before the confession is revealed -->
+      <section class="intro-block" id="introBlock">
+        <p class="intro-whisper">okay&hellip; enough hiding behind birthday wishes ♡</p>
+        <h1 class="intro-heading">There&rsquo;s something I&rsquo;ve been meaning to tell you.</h1>
+        <p class="intro-line">I kept thinking about how to say it.</p>
+        <p class="intro-line">Maybe I should just stop overthinking it.</p>
+
+        <button type="button" class="reveal-button" id="revealButton">
+          Okay&hellip; I&rsquo;ll say it ♡
+        </button>
+      </section>
+
+      <!-- Confession: hidden until the reveal button is pressed -->
+      <section class="confession-block" id="confessionBlock" hidden tabindex="-1" aria-label="A confession">
+        <span class="tiny-note tiny-note-a reveal-unit" aria-hidden="true">finally saying it&hellip;</span>
+        <span class="tiny-note tiny-note-b reveal-unit" aria-hidden="true">okay, deep breath.</span>
+        <span class="tiny-note tiny-note-c reveal-unit" aria-hidden="true">no taking this back now 🤭</span>
+
+        <p class="confession-lead reveal-unit" id="confessionLead">I really, really like you Neha.</p>
+        <p class="confession-lead confession-lead-soft reveal-unit" id="confessionLead2">
+          And I don&rsquo;t think I want to keep pretending it&rsquo;s just flirting anymore.
+        </p>
+
+        <p class="confession-para reveal-unit" id="confessionPara">
+          I like talking to you.<br>
+          I like the little moments.<br>
+          I like the way our conversations somehow make ordinary days feel a little less ordinary.
+        </p>
+
+        <p class="confession-line reveal-unit">I don&rsquo;t know exactly where this goes.</p>
+        <p class="confession-line reveal-unit">And I&rsquo;m not expecting you to have an answer right now.</p>
+        <p class="confession-line reveal-unit">But I wanted to be honest with you.</p>
+
+        <p class="confession-hand reveal-unit">because you deserve to know. ♡</p>
+
+        <div class="after-confession reveal-unit" id="afterConfession">
+          <p class="after-line">I&rsquo;ve been wanting to say that for a while.</p>
+          <p class="after-line">And now&hellip; there&rsquo;s just one thing left.</p>
+          <p class="after-hand">no more hiding behind hints ♡</p>
+          <p class="after-cta">One last page &rarr;</p>
+
+          <button type="button" class="continue-button" id="continueButton">
+            Continue <span class="continue-arrow" aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Sparkle burst layer for the confession-reveal moment -->
+  <div class="sparkle-burst" id="sparkleBurst" aria-hidden="true"></div>
+
+  <!--
+    MUSIC ARCHITECTURE:
+    Page 7 does not start, restart, or manage audio in any way. If a
+    shared <audio> element already exists from a future single-shell
+    integration, it simply keeps playing untouched.
+  -->
+
+  <script src="music.js"></script>
+  
+  <script src="script7.js"></script>
+</body>
+</html>

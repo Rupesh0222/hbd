@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>one last thing</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style8.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual. Intensifies briefly for the YES celebration. -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, same concept as previous pages -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <main class="stage">
+    <div class="paper" id="paper">
+
+      <span class="paper-deco gold-star gold-star-a" aria-hidden="true">✦</span>
+      <span class="paper-deco gold-star gold-star-b" aria-hidden="true">✧</span>
+      <span class="paper-deco heart-doodle" aria-hidden="true">♡</span>
+      <span class="paper-deco pressed-flower" aria-hidden="true">
+        <span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span><span class="pf-petal"></span>
+        <span class="pf-stem"></span>
+      </span>
+
+      <!-- Step 1: quiet opening -->
+      <section class="opening-block" id="openingBlock">
+        <p class="whisper">okay&hellip; one last thing ♡</p>
+        <h1 class="opening-heading">There&rsquo;s really only one thing left to ask.</h1>
+        <p class="opening-line">After everything you&rsquo;ve just seen&hellip;</p>
+        <button type="button" class="open-it-button" id="openItButton">Open it ♡</button>
+      </section>
+
+      <!-- Step 2: the envelope itself, revealed once "Open it" is clicked -->
+      <div class="envelope-wrap" id="envelopeWrap" hidden>
+        <button
+          type="button"
+          class="envelope"
+          id="envelopeButton"
+          aria-label="Open the final card, for you"
+          aria-expanded="false"
+        >
+          <span class="env-shadow" aria-hidden="true"></span>
+          <span class="env-back" aria-hidden="true"></span>
+          <span class="env-flower" aria-hidden="true">
+            <span class="env-petal"></span><span class="env-petal"></span><span class="env-petal"></span><span class="env-petal"></span><span class="env-petal-center"></span>
+          </span>
+          <span class="env-flap" aria-hidden="true"></span>
+          <span class="env-seal" aria-hidden="true">♡</span>
+          <span class="env-label" aria-hidden="true">for you ♡</span>
+        </button>
+      </div>
+
+      <!-- Step 3: the question itself, revealed once the envelope opens -->
+      <section class="question-block" id="questionBlock" hidden tabindex="-1" aria-label="The question">
+        <p class="question-so reveal-unit" id="questionSo"></p>
+        <h2 class="question-main reveal-unit">Will you let me turn all these little conversations into something more? Maybe the start of something real? A healthy relationship?</h2>
+
+        <div class="question-support reveal-unit">
+          <p>I really like you.</p>
+          <p>And I&rsquo;d love to see where this could go.</p>
+          <p>But I want your answer to be yours.</p>
+        </div>
+
+        <p class="question-hand reveal-unit">No pressure. Just honesty. ♡</p>
+
+        <div class="question-actions reveal-unit" id="questionActions">
+          <button type="button" class="response-button response-yes" id="yesButton">♡ YES ♡</button>
+          <button type="button" class="response-button response-think" id="thinkButton">Let me think 🤭</button>
+        </div>
+        <p class="message-status" id="responseError" role="alert"></p>
+      </section>
+
+      <!-- Step 4: her response, shown after she chooses -->
+      <section class="response-block" id="responseBlock" hidden tabindex="-1" aria-live="polite" aria-label="Response">
+        <div class="response-yes-state" id="responseYesState" hidden>
+          <p class="response-heart">♡</p>
+          <p class="response-line response-line-strong">You just made this idiot very happy. ❤️</p>
+          <p class="response-line">I guess October 4 just became a little more special.</p>
+          <p class="response-line">See you then. ♡</p>
+        </div>
+
+        <div class="response-think-state" id="responseThinkState" hidden>
+          <p class="response-hand">Take your time. ♡</p>
+          <p class="response-line response-line-strong">That&rsquo;s completely okay. ♡</p>
+          <p class="response-line">I just wanted you to know how I feel.</p>
+          <p class="response-line">I&rsquo;m glad I got to tell you.</p>
+          <p class="response-line">Whatever you decide, I&rsquo;m happy I was honest with you.</p>
+          <p class="response-hand response-hand-small">No pressure. Really. ♡</p>
+        </div>
+
+        <!-- Optional message box, shared by both response states -->
+        <div class="message-box" id="messageBox">
+          <p class="message-heading">Want to say something? ♡</p>
+          <label class="message-label" for="messageTextarea">Your message</label>
+          <textarea
+            class="message-textarea"
+            id="messageTextarea"
+            placeholder="Anything you want to tell me..."
+            rows="3"
+            maxlength="1000"
+          ></textarea>
+          <button type="button" class="message-send-button" id="messageSendButton">Send this little message ♡</button>
+          <p class="message-status" id="messageStatus" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <p class="page-footer">made with a little courage, a lot of thought, and way too many hearts ♡</p>
+
+    </div>
+  </main>
+
+  <!-- Sparkle/heart burst layer for the envelope-open and YES-celebration moments -->
+  <div class="sparkle-burst" id="sparkleBurst" aria-hidden="true"></div>
+
+  <!--
+    MUSIC ARCHITECTURE:
+    Page 8 does not start, restart, or manage audio in any way. If a
+    shared global BGM controller already exists from a future
+    single-shell integration, this page simply leaves it untouched
+    and could optionally listen for its events later.
+  -->
+
+  <script src="music.js"></script>
+  
+  <script type="module" src="script8.js"></script>
+</body>
+</html>

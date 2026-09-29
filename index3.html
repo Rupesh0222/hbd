@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>a little collection</title>
+
+<!-- Google Fonts: Cormorant Garamond (display), Poppins (UI), Allura (handwritten) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@400;500;600&family=Allura&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico">
+<link rel="stylesheet" href="style3.css">
+</head>
+<body>
+
+  <!-- Decorative particle layer, purely visual -->
+  <div class="particle-field" id="particleField" aria-hidden="true"></div>
+
+  <!-- Custom desktop cursor, same concept as previous pages -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <svg viewBox="0 0 32 32" class="cursor-heart">
+      <path d="M16 27 C16 27 3 18.5 3 10.8 C3 6 6.7 3 10.4 3 C13 3 15 4.5 16 6.8 C17 4.5 19 3 21.6 3 C25.3 3 29 6 29 10.8 C29 18.5 16 27 16 27 Z"/>
+    </svg>
+    <span class="cursor-sparkle">✦</span>
+  </div>
+
+  <!-- Everything the visitor normally interacts with. Hidden/inert while the lightbox is open. -->
+  <div class="page-content" id="pageContent">
+
+    <header class="intro">
+      <p class="intro-eyebrow">a little collection ♡</p>
+      <h1 class="intro-heading">Some things are worth keeping.</h1>
+      <p class="intro-subheading">So I saved a few moments that made me smile.</p>
+    </header>
+
+    <section class="scrapbook" aria-label="Photo scrapbook">
+      <!-- Faint decorative torn-paper / pressed-flower accents, purely visual -->
+      <span class="deco deco-torn deco-torn-a" aria-hidden="true"></span>
+      <span class="deco deco-torn deco-torn-b" aria-hidden="true"></span>
+      <span class="deco deco-flower deco-flower-a" aria-hidden="true">
+        <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
+      </span>
+      <span class="deco deco-flower deco-flower-b" aria-hidden="true">
+        <span class="petal"></span><span class="petal"></span><span class="petal"></span><span class="petal"></span>
+      </span>
+
+      <div class="scrapbook-grid" id="scrapbookGrid" tabindex="-1">
+        <!-- Polaroid photo cards are generated here by page3.js from the `photos` array -->
+      </div>
+    </section>
+
+    <section class="closing" id="closingSection" hidden>
+      <p class="closing-line">and somehow&hellip; this isn&rsquo;t even my favourite part yet.</p>
+      <button type="button" class="keep-going-button" id="keepGoingButton">
+        Keep going <span class="keep-going-arrow" aria-hidden="true">&rarr;</span>
+      </button>
+    </section>
+
+  </div>
+
+  <!-- Lightbox: an accessible modal dialog for viewing one photo at a time -->
+  <div class="lightbox-backdrop" id="lightboxBackdrop" hidden>
+    <div
+      class="lightbox"
+      id="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+    >
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">
+        <svg viewBox="0 0 24 24" class="lightbox-icon"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">
+        <svg viewBox="0 0 24 24" class="lightbox-icon"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="lightbox-media">
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <div class="lightbox-placeholder" id="lightboxPlaceholder" hidden>
+          <p>your photo goes here ♡</p>
+        </div>
+      </div>
+
+      <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">
+        <svg viewBox="0 0 24 24" class="lightbox-icon"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="lightbox-info">
+        <p class="lightbox-caption" id="lightboxCaption"></p>
+        <p class="lightbox-note" id="lightboxNote"></p>
+        <p class="lightbox-counter" id="lightboxCounter" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+
+  <!--
+    MUSIC ARCHITECTURE:
+    Page 3 does not start, restart, or manage audio in any way. If a
+    shared <audio> element exists from a future single-shell
+    integration, it simply keeps playing untouched.
+  -->
+  <script src="music.js"></script>
+
+  <script src="script3.js"></script>
+</body>
+</html>

@@ -1,0 +1,734 @@
+/* =========================================================
+   PAGE 2 — Birthday Reveal
+   Vintage Love Letter × Soft Pastel Romance × Digital Scrapbook
+   Same visual identity as Page 1.
+   ========================================================= */
+
+:root {
+  /* ---- palette (identical to Page 1) ---- */
+  --dusty-rose: #D8A7B1;
+  --blush-pink: #E8C7C8;
+  --warm-cream: #FFF7EA;
+  --muted-lavender: #C8B6D8;
+  --soft-sage: #B8C8B5;
+  --deep-cocoa: #4A3540;
+  --champagne-gold: #D6B878;
+  --cursor-pink: #FF5A8A;
+
+  /* ---- derived tones ---- */
+  --cocoa-soft: rgba(74, 53, 64, 0.72);
+  --cocoa-faint: rgba(74, 53, 64, 0.45);
+  --gold-glow: rgba(214, 184, 120, 0.55);
+  --card-border: rgba(214, 184, 120, 0.45);
+
+  /* ---- type ---- */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-ui: 'Poppins', sans-serif;
+  --font-hand: 'Allura', cursive;
+
+  /* ---- motion ---- */
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-ui);
+  color: var(--deep-cocoa);
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  background:
+    radial-gradient(1100px 750px at 12% 8%, rgba(200, 182, 216, 0.5), transparent 60%),
+    radial-gradient(950px 700px at 88% 92%, rgba(216, 167, 177, 0.5), transparent 60%),
+    linear-gradient(160deg, var(--warm-cream) 0%, var(--blush-pink) 55%, var(--muted-lavender) 100%);
+  cursor: none;
+}
+
+body.no-custom-cursor {
+  cursor: auto;
+}
+
+/* Subtle vintage paper grain */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(74,53,64,0.02) 0px, rgba(74,53,64,0.02) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(74,53,64,0.015) 0px, rgba(74,53,64,0.015) 1px, transparent 1px, transparent 3px);
+  background-size: 3px 3px;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(74, 53, 64, 0.14) 100%);
+}
+
+/* =========================================================
+   Decorative particle field
+   ========================================================= */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  will-change: transform, opacity;
+  opacity: 0;
+  animation-name: float-up;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 6px rgba(214, 184, 120, 0.15));
+}
+
+.particle.tone-rose { color: var(--dusty-rose); }
+.particle.tone-lav  { color: var(--muted-lavender); }
+.particle.tone-gold { color: var(--champagne-gold); }
+.particle.tone-sage { color: var(--soft-sage); }
+
+@keyframes float-up {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  8%   { opacity: 0.5; }
+  92%  { opacity: 0.32; }
+  100% { transform: translate3d(var(--drift, 20px), -120vh, 0) rotate(var(--spin, 25deg)); opacity: 0; }
+}
+
+/* =========================================================
+   Stage / layout
+   ========================================================= */
+.stage {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+/* =========================================================
+   Intro sequence (whisper -> "today is special")
+   ========================================================= */
+.intro-sequence {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.whisper-line,
+.today-line {
+  position: absolute;
+  margin: 0;
+  opacity: 0;
+  color: var(--cocoa-soft);
+}
+
+.whisper-line {
+  font-family: var(--font-hand);
+  font-size: clamp(2.2rem, 7vw, 3rem);
+  color: var(--dusty-rose);
+}
+
+.today-line {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.whisper-line.is-visible,
+.today-line.is-visible {
+  animation: intro-fade 1.8s var(--ease-soft) forwards;
+}
+
+.whisper-line.is-leaving,
+.today-line.is-leaving {
+  animation: intro-fade-out 0.8s var(--ease-soft) forwards;
+}
+
+@keyframes intro-fade {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes intro-fade-out {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.intro-sequence.is-done {
+  display: none;
+}
+
+/* =========================================================
+   Main card
+   ========================================================= */
+.card {
+  position: relative;
+  width: calc(100% - 32px);
+  max-width: 560px;
+  padding: clamp(30px, 6vw, 52px) clamp(22px, 6vw, 44px) clamp(34px, 6vw, 48px);
+  border-radius: 26px;
+  text-align: center;
+
+  background: linear-gradient(155deg, rgba(255, 247, 234, 0.72), rgba(255, 247, 234, 0.42));
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--card-border);
+  box-shadow:
+    0 30px 60px -20px rgba(74, 53, 64, 0.32),
+    0 2px 0 rgba(255, 255, 255, 0.5) inset,
+    0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.1s var(--ease-soft), transform 1.1s var(--ease-soft);
+}
+
+.card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delicate decorative corner flourishes, paper-invitation feel */
+.corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.corner::before,
+.corner::after {
+  content: "";
+  position: absolute;
+  background: var(--champagne-gold);
+}
+
+.corner::before { width: 100%; height: 1.5px; }
+.corner::after  { width: 1.5px; height: 100%; }
+
+.corner-tl { top: 14px; left: 14px; }
+.corner-tl::before, .corner-tl::after { top: 0; left: 0; }
+
+.corner-tr { top: 14px; right: 14px; }
+.corner-tr::before { top: 0; right: 0; }
+.corner-tr::after  { top: 0; right: 0; }
+
+.corner-bl { bottom: 14px; left: 14px; }
+.corner-bl::before { bottom: 0; left: 0; }
+.corner-bl::after  { bottom: 0; left: 0; }
+
+.corner-br { bottom: 14px; right: 14px; }
+.corner-br::before { bottom: 0; right: 0; }
+.corner-br::after  { bottom: 0; right: 0; }
+
+/* =========================================================
+   Headline + reveal lines
+   ========================================================= */
+.headline {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(1.9rem, 6vw, 2.5rem);
+  color: var(--deep-cocoa);
+  line-height: 1.2;
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+
+.headline.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#herName {
+  color: var(--dusty-rose);
+}
+
+.reveal-line {
+  margin: 0 0 10px;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  color: var(--cocoa-soft);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.8s var(--ease-soft), transform 0.8s var(--ease-soft);
+}
+
+.reveal-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.line-3 {
+  margin-bottom: 30px;
+  font-style: italic;
+  color: var(--deep-cocoa);
+  min-height: 1.3em;
+}
+
+/* Typewriter caret, shown only while the line is actively being typed */
+.typewriter.is-typing::after {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0.95em;
+  margin-left: 2px;
+  background: var(--dusty-rose);
+  vertical-align: -0.1em;
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* =========================================================
+   Envelope
+   ========================================================= */
+.envelope-stage {
+  position: relative;
+  width: 190px;
+  height: 132px;
+  margin: 4px auto 28px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.9s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+
+.envelope-stage.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* The note that rises when the envelope opens. Positioned relative to
+   the CARD (not the small envelope box) so it always settles in the
+   center of the visible card instead of escaping upward off-screen. */
+.letter-note {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(320px, 88%);
+  padding: 22px 20px 20px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,247,234,0.98), rgba(255,247,234,0.92));
+  border: 1px solid var(--card-border);
+  box-shadow: 0 24px 46px -18px rgba(74, 53, 64, 0.45);
+  z-index: 7;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -22%) scale(0.9);
+  transition: transform 0.85s var(--ease-soft) 0.1s, opacity 0.6s var(--ease-soft) 0.1s;
+}
+
+.envelope-stage.is-open ~ .letter-note {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.letter-line {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--deep-cocoa);
+}
+
+.letter-line-and-yes {
+  font-style: italic;
+  color: var(--dusty-rose);
+}
+
+.letter-signature {
+  margin: 12px 0 0;
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  color: var(--dusty-rose);
+}
+
+/* The envelope button itself */
+.envelope {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: none;
+  -webkit-tap-highlight-color: transparent;
+  perspective: 900px;
+}
+
+body.no-custom-cursor .envelope {
+  cursor: pointer;
+}
+
+.envelope-shadow {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -10px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(74, 53, 64, 0.22);
+  filter: blur(8px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-soft);
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(160deg, var(--warm-cream), var(--blush-pink));
+  border: 1px solid var(--card-border);
+  box-shadow:
+    0 14px 26px -12px rgba(74, 53, 64, 0.3),
+    0 1px 0 rgba(255,255,255,0.6) inset;
+}
+
+/* Folded flap, a triangle drawn with clip-path, hinged at the top edge */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 62%;
+  background: linear-gradient(200deg, var(--blush-pink), var(--dusty-rose));
+  border: 1px solid var(--card-border);
+  border-bottom: none;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.7s var(--ease-soft);
+  z-index: 2;
+  backface-visibility: hidden;
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff2, transparent 60%), var(--champagne-gold);
+  color: var(--warm-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 10px -4px rgba(74, 53, 64, 0.5);
+  z-index: 4;
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-soft);
+}
+
+.envelope-caption {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  color: var(--deep-cocoa);
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+/* Hover / focus states while closed */
+.envelope:not(.is-open):hover .envelope-back,
+.envelope:not(.is-open):focus-visible .envelope-back {
+  transform: translateY(-4px);
+}
+
+.envelope:not(.is-open):hover .envelope-shadow,
+.envelope:not(.is-open):focus-visible .envelope-shadow {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+.envelope:not(.is-open):hover .envelope-flap,
+.envelope:not(.is-open):focus-visible .envelope-flap {
+  transform: translateY(-4px) rotateX(-6deg);
+}
+
+.envelope:focus-visible {
+  outline: none;
+}
+
+.envelope:focus-visible .envelope-back {
+  box-shadow:
+    0 14px 26px -12px rgba(74, 53, 64, 0.3),
+    0 0 0 3px rgba(214, 184, 120, 0.55);
+}
+
+/* Open state */
+.envelope-stage.is-open .envelope-flap {
+  transform: rotateX(-150deg) translateY(-2px);
+}
+
+.envelope-stage.is-open .envelope-seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+.envelope-stage.is-open .envelope-caption {
+  opacity: 0;
+}
+
+.envelope-stage.is-open .envelope-back {
+  transform: none;
+}
+
+/* Gentle continuous float while the envelope is unopened */
+@keyframes envelope-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.envelope-stage:not(.is-open) .envelope-back {
+  animation: envelope-float 5s ease-in-out infinite;
+}
+
+/* =========================================================
+   Next button
+   ========================================================= */
+.next-button {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--deep-cocoa);
+  background: linear-gradient(160deg, rgba(255,255,255,0.6), rgba(255,255,255,0.25));
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  padding: 12px 26px;
+  cursor: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 22px -12px rgba(74, 53, 64, 0.3);
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.8s var(--ease-soft), transform 0.8s var(--ease-soft), box-shadow 0.25s ease, background 0.25s ease;
+}
+
+body.no-custom-cursor .next-button {
+  cursor: pointer;
+}
+
+.next-button.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.next-button:hover,
+.next-button:focus-visible {
+  box-shadow: 0 14px 26px -12px rgba(74, 53, 64, 0.36), 0 0 0 1px var(--champagne-gold) inset;
+  background: linear-gradient(160deg, rgba(255,255,255,0.75), rgba(255,255,255,0.35));
+}
+
+.next-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(214, 184, 120, 0.55);
+}
+
+.next-arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-soft);
+}
+
+.next-button:hover .next-arrow {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   Sparkle burst (envelope-opening moment)
+   ========================================================= */
+.sparkle-burst {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.burst-sparkle {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  font-size: 1rem;
+  color: var(--champagne-gold);
+  opacity: 0;
+  animation: burst-out 1.2s var(--ease-soft) forwards;
+}
+
+@keyframes burst-out {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  22%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--bx, 0px)), calc(-50% + var(--by, 0px))) scale(1); }
+}
+
+/* =========================================================
+   Custom cursor (same concept as Page 1)
+   ========================================================= */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+body.no-custom-cursor .custom-cursor {
+  display: none;
+}
+
+.cursor-heart {
+  width: 100%;
+  height: 100%;
+  fill: var(--cursor-pink);
+  filter: drop-shadow(0 2px 6px rgba(233, 30, 99, 0.45));
+  transform-origin: center;
+  animation: cursor-pop 1.1s var(--ease-soft) infinite;
+  transition: fill 0.18s ease, filter 0.18s ease;
+}
+
+@keyframes cursor-pop {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.18); }
+}
+
+.custom-cursor.is-hovering .cursor-heart {
+  fill: var(--champagne-gold);
+  filter: drop-shadow(0 0 10px var(--gold-glow));
+  animation: cursor-pop 0.55s var(--ease-soft) infinite;
+}
+
+.cursor-sparkle {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  font-size: 0.75rem;
+  color: var(--cursor-pink);
+  opacity: 0.95;
+  animation: sparkle-twinkle 1.4s ease-in-out infinite;
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8) rotate(0deg); }
+  50%      { opacity: 1;   transform: scale(1.15) rotate(15deg); }
+}
+
+.cursor-trail {
+  position: fixed;
+  z-index: 998;
+  pointer-events: none;
+  font-size: 0.7rem;
+  color: var(--champagne-gold);
+  opacity: 0.8;
+  animation: trail-fade 0.7s ease-out forwards;
+}
+
+@keyframes trail-fade {
+  0%   { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0;    transform: translate(-50%, -50%) scale(0.3); }
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .particle {
+    animation-duration: 0.001s !important;
+    opacity: 0 !important;
+  }
+  .whisper-line,
+  .today-line,
+  .card,
+  .headline,
+  .reveal-line,
+  .envelope-stage,
+  .next-button,
+  .letter-note,
+  .envelope-flap,
+  .envelope-shadow,
+  .envelope-seal,
+  .envelope-caption,
+  .custom-cursor,
+  .cursor-heart {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  .cursor-heart,
+  .cursor-sparkle {
+    animation: none !important;
+  }
+  .envelope-stage:not(.is-open) .envelope-back {
+    animation: none !important;
+  }
+  .typewriter.is-typing::after {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   Responsive tweaks
+   ========================================================= */
+@media (max-width: 380px) {
+  .headline { font-size: 1.7rem; }
+  .envelope-stage { width: 168px; height: 118px; }
+  .letter-line { font-size: 0.95rem; }
+}
+
+@media (min-width: 1440px) {
+  .card { max-width: 580px; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor { display: none; }
+  body { cursor: auto; }
+  .envelope,
+  .next-button { cursor: pointer; }
+}
